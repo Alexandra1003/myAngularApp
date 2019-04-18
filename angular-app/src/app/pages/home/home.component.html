@@ -1,0 +1,28 @@
+<div class="home-container" [formGroup]="myForm">
+  <div class="name-container" formGroupName="name">
+    <mat-form-field>
+      <input formControlName="name" matInput placeholder="Name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input formControlName="lastname" matInput placeholder="Lastname">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field>
+    <input formControlName="email" matInput placeholder="Email">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input formControlName="password" matInput placeholder="Password">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Please, select a language</mat-label>
+    <mat-select>
+      <mat-option [value]="lang" *ngFor="let lang of langs">{{lang}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary">Primary</button>
+</div>
