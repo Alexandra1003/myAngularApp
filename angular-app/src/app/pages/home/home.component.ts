@@ -50,6 +50,17 @@ createForm() {
   });
 }
 
+onSubmit(event) {
+  event.preventDefault();
+
+  if(this.myForm.valid) {
+    console.log('it is valid');
+    this.myForm.reset();
+  } else {
+    console.log('it is invalid');
+  }
+}
+
 ngOnInit() {
   this.createFormControls();
   this.createForm();

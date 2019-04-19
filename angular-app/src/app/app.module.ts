@@ -14,12 +14,14 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {LayoutModule} from '@angular/cdk/layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
+import { PlaylistComponent } from './pages/playlist/playlist.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     MakeGreyDirective,
+    PlaylistComponent,
   ],
   imports: [
     BrowserModule,

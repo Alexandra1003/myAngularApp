@@ -1,10 +1,11 @@
-<div class="home-container" [formGroup]="myForm">
+<form [formGroup]="myForm" (ngSubmit)="onSubmit($event)">
+<div class="home-container" >
   <div class="name-container" formGroupName="name">
     <mat-form-field>
       <input formControlName="name" matInput placeholder="Name">
     </mat-form-field>
     <div class="form-control-message" *ngIf="name.invalid && (name.dirty || name.touched)">
-      <p *ngIf="name.errors.required">Name is required</p>
+      <p *ngIf="name.errors['required']">Name is required</p>
     </div>
 
     <mat-form-field>
@@ -12,23 +13,23 @@
     </mat-form-field>
   </div>
   <div class="form-control-message" *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
-    <p *ngIf="lastname.errors.required">Lastname is required</p>
+    <p *ngIf="lastname.errors['required']">Lastname is required</p>
   </div>
 
   <mat-form-field>
     <input formControlName="email" matInput placeholder="Email">
   </mat-form-field>
   <div class="form-control-message" *ngIf="email.invalid && (email.dirty || email.touched)">
-    <p *ngIf="email.errors.required">Email is required</p>
-    <p *ngIf="email.errors.pattern">Email adress must contain at least '@' symbol</p>
+    <p *ngIf="email.errors['required']">Email is required</p>
+    <p *ngIf="email.errors['pattern']">Email adress must contain at least '@' symbol</p>
   </div>
 
   <mat-form-field>
     <input formControlName="password" matInput placeholder="Password">
   </mat-form-field>
   <div class="form-control-message" *ngIf="password.invalid && (password.dirty || password.touched)">
-    <p *ngIf="password.errors.required">Password is required</p>
-    <p *ngIf="password.errors.minLength">Password should contain at least 8 symbols</p>
+    <p *ngIf="password.errors['required']">Password is required</p>
+    <p *ngIf="password.errors['minLength']">Password should contain at least 8 symbols</p>
   </div>
 
   <mat-form-field>
@@ -38,5 +39,7 @@
     </mat-select>
   </mat-form-field>
 
-  <button mat-raised-button color="primary">Primary</button>
+  <button type="submit" mat-raised-button color="primary">Primary</button>
 </div>
+</form>
+<!-- (click)="onSubmit()" -->
