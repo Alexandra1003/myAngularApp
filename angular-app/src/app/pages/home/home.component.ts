@@ -10,7 +10,7 @@ import { map, filter } from 'rxjs/operators';
 export class HomeComponent implements OnInit {
 
   myForm: FormGroup;
-  name: FormGroup;
+  name: FormControl;
   lastname: FormControl;
   email: FormControl;
   password: FormControl;
@@ -22,18 +22,49 @@ export class HomeComponent implements OnInit {
     'French'
   ];
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {
-    this.myForm = new FormGroup({
-      name : new FormGroup({
-        name: new FormControl(),
-        lastname : new FormControl()
-      }),
-      password : new FormControl(),
-      email : new FormControl(),
-      language : new FormControl()
-    });
+  createFormControls() {
+    this.name = new FormControl('', Validators.required);
+    this.lastname = new FormControl('', Validators.required);
+    this.password = new FormControl('', [
+      Validators.required,
+      Validators.minLength(8)
+    ]);
+    this.email = new FormControl('', [
+      Validators.required,
+      Validators.pattern('[^ @]*@[^ @]*')
+    ]);
+    this.language = new FormControl();
+}
+
+createForm() {
+  this.myForm = new FormGroup({
+    name: new FormGroup({
+      name: this.name,
+      lastname: this.lastname
+    }),
+    password: this.password,
+    email: this.email,
+    language: this.language
+  });
+}
+
+onSubmit(event) {
+  event.preventDefault();
+
+  if(this.myForm.valid) {
+    console.log('it is valid');
+    this.myForm.reset();
+  } else {
+    console.log('it is invalid');
   }
+}
+
+ngOnInit() {
+  this.createFormControls();
+  this.createForm();
+}
+
 
 }
