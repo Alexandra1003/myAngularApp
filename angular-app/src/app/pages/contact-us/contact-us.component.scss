@@ -1,0 +1,9 @@
+.main-content-wrapper {
+  margin: 0 auto;
+  padding: 65px 25%;
+  .contact-us-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

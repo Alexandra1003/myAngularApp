@@ -1,45 +1,121 @@
-<form [formGroup]="myForm" (ngSubmit)="onSubmit($event)">
-<div class="home-container" >
-  <div class="name-container" formGroupName="name">
-    <mat-form-field>
-      <input formControlName="name" matInput placeholder="Name">
-    </mat-form-field>
-    <div class="form-control-message" *ngIf="name.invalid && (name.dirty || name.touched)">
-      <p *ngIf="name.errors['required']">Name is required</p>
+<div class="main-content-wrapper">
+  <pre>{{f.value | json}}</pre>
+  <form #f="ngForm" (ngSubmit) = "onSubmit($event)">
+    <div class="home-container">
+      <div class="name-container" ngModelGroup="name">
+        <mat-form-field>
+          <input matInput
+                 placeholder="Name"
+                 name="name"
+                 [(ngModel)]="model.name"
+                 required
+                 #name = "ngModel">
+        </mat-form-field>
+        <div class="form-control-message" *ngIf="name.invalid && (name.dirty || name.touched)">
+          <p *ngIf="name.errors['required']">Name is required</p>
+        </div>
+
+        <mat-form-field>
+          <input matInput
+                 placeholder="Lastname"
+                 name="lastname"
+                 [(ngModel)]="model.lastname"
+                 required
+                 #lastname = "ngModel">
+        </mat-form-field>
+      </div>
+      <div class="form-control-message" *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
+        <p *ngIf="lastname.errors['required']">Lastname is required</p>
+      </div>
+
+      <mat-form-field>
+        <input matInput
+              placeholder="Email"
+              name="email"
+              [(ngModel)]="model.email"
+              required
+              pattern="[^ @]*@[^ @]*"
+              #email = "ngModel">
+      </mat-form-field>
+      <div class="form-control-message" *ngIf="email.invalid && (email.dirty || email.touched)">
+        <p *ngIf="email.errors['required']">Email is required</p>
+        <p *ngIf="email.errors['pattern']">Email adress must contain at least '@' symbol</p>
+      </div>
+
+      <mat-form-field>
+        <input matInput
+              placeholder="Password"
+              name="password"
+              [(ngModel)]="model.password"
+              required
+              minlength="8"
+              #password = "ngModel">
+      </mat-form-field>
+      <div class="form-control-message" *ngIf="password.invalid && (password.dirty || password.touched)">
+        <p *ngIf="password.errors['required']">Password is required</p>
+        <p *ngIf="password.errors['minlength']">Password should contain at least 8 symbols</p>
+      </div>
+
+      <mat-form-field>
+        <mat-label>Please, select a language</mat-label>
+        <mat-select name="language" [(ngModel)]="model.language">
+          <mat-option [value]="lang" *ngFor="let lang of langs">{{lang}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button type="submit"
+                    mat-raised-button
+                    color="primary"
+                    [disabled]="f.invalid">Primary
+      </button>
     </div>
-
-    <mat-form-field>
-      <input formControlName="lastname" matInput placeholder="Lastname">
-    </mat-form-field>
-  </div>
-  <div class="form-control-message" *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
-    <p *ngIf="lastname.errors['required']">Lastname is required</p>
-  </div>
-
-  <mat-form-field>
-    <input formControlName="email" matInput placeholder="Email">
-  </mat-form-field>
-  <div class="form-control-message" *ngIf="email.invalid && (email.dirty || email.touched)">
-    <p *ngIf="email.errors['required']">Email is required</p>
-    <p *ngIf="email.errors['pattern']">Email adress must contain at least '@' symbol</p>
-  </div>
-
-  <mat-form-field>
-    <input formControlName="password" matInput placeholder="Password">
-  </mat-form-field>
-  <div class="form-control-message" *ngIf="password.invalid && (password.dirty || password.touched)">
-    <p *ngIf="password.errors['required']">Password is required</p>
-    <p *ngIf="password.errors['minLength']">Password should contain at least 8 symbols</p>
-  </div>
-
-  <mat-form-field>
-    <mat-label>Please, select a language</mat-label>
-    <mat-select>
-      <mat-option [value]="lang" *ngFor="let lang of langs">{{lang}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <button type="submit" mat-raised-button color="primary">Primary</button>
+  </form>
 </div>
-</form>
-<!-- (click)="onSubmit()" -->
+
+
+<!-- <div class="main-content-wrapper">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit($event)">
+    <div class="home-container">
+      <div class="name-container" formGroupName="name">
+        <mat-form-field>
+          <input formControlName="name" matInput placeholder="Name">
+        </mat-form-field>
+        <div class="form-control-message" *ngIf="name.invalid && (name.dirty || name.touched)">
+          <p *ngIf="name.errors['required']">Name is required</p>
+        </div>
+
+        <mat-form-field>
+          <input formControlName="lastname" matInput placeholder="Lastname">
+        </mat-form-field>
+      </div>
+      <div class="form-control-message" *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
+        <p *ngIf="lastname.errors['required']">Lastname is required</p>
+      </div>
+
+      <mat-form-field>
+        <input formControlName="email" matInput placeholder="Email">
+      </mat-form-field>
+      <div class="form-control-message" *ngIf="email.invalid && (email.dirty || email.touched)">
+        <p *ngIf="email.errors['required']">Email is required</p>
+        <p *ngIf="email.errors['pattern']">Email adress must contain at least '@' symbol</p>
+      </div>
+
+      <mat-form-field>
+        <input formControlName="password" matInput placeholder="Password">
+      </mat-form-field>
+      <div class="form-control-message" *ngIf="password.invalid && (password.dirty || password.touched)">
+        <p *ngIf="password.errors['required']">Password is required</p>
+        <p *ngIf="password.errors['minLength']">Password should contain at least 8 symbols</p>
+      </div>
+
+      <mat-form-field>
+        <mat-label>Please, select a language</mat-label>
+        <mat-select>
+          <mat-option [value]="lang" *ngFor="let lang of langs">{{lang}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button type="submit" mat-raised-button color="primary">Primary</button>
+    </div>
+  </form>
+</div> -->

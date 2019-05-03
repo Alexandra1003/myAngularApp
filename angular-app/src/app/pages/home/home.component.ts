@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { map, filter } from 'rxjs/operators';
+import { Signup } from 'src/app/shared/interfaces/signup';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ export class HomeComponent implements OnInit {
   myForm: FormGroup;
   name: FormControl;
   lastname: FormControl;
-  email: FormControl;
+  // email: FormControl;
   password: FormControl;
   language: FormControl;
 
@@ -21,6 +22,19 @@ export class HomeComponent implements OnInit {
     'German',
     'French'
   ];
+
+  /*  */
+  @ViewChild('f') form: any;
+  email: string = '';
+
+  model: Signup = {
+    name : '',
+    lastname: '',
+    email: '',
+    password: '',
+    language: ''
+  }
+  /*  */
 
   constructor() { }
 
@@ -31,10 +45,10 @@ export class HomeComponent implements OnInit {
       Validators.required,
       Validators.minLength(8)
     ]);
-    this.email = new FormControl('', [
-      Validators.required,
-      Validators.pattern('[^ @]*@[^ @]*')
-    ]);
+    // this.email = new FormControl('', [
+    //   Validators.required,
+    //   Validators.pattern('[^ @]*@[^ @]*')
+    // ]);
     this.language = new FormControl();
 }
 
@@ -45,7 +59,7 @@ createForm() {
       lastname: this.lastname
     }),
     password: this.password,
-    email: this.email,
+    // email: this.email,
     language: this.language
   });
 }
@@ -53,12 +67,20 @@ createForm() {
 onSubmit(event) {
   event.preventDefault();
 
-  if(this.myForm.valid) {
+  if(this.form.valid) {
     console.log('it is valid');
-    this.myForm.reset();
+    this.form.reset();
   } else {
     console.log('it is invalid');
   }
+
+
+  // if(this.myForm.valid) {
+  //   console.log('it is valid');
+  //   this.myForm.reset();
+  // } else {
+  //   console.log('it is invalid');
+  // }
 }
 
 ngOnInit() {

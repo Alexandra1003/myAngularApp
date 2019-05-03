@@ -1,3 +1,10 @@
-<p>
-  playlist works!
-</p>
+<div class="main-content-wrapper">
+  <!-- <form class="example-form" > -->
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Favorite food" [formControl]="searchField">
+    </mat-form-field>
+  <!-- </form> -->
+  <ul>
+    <li *ngFor="let search of searches">{{ search }}</li>
+  </ul>
+</div>
