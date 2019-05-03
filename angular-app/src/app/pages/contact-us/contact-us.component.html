@@ -1,13 +1,19 @@
 <div class="main-content-wrapper">
-  <form>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit($event)">
     <div class="contact-us-container">
       <mat-form-field>
-        <input matInput placeholder="Name">
+        <input formControlName="name" matInput placeholder="Name">
       </mat-form-field>
+      <div class="form-control-message" *ngIf="name.invalid && (name.dirty || name.touched)">
+          <p *ngIf="name.errors['required']">Name is required</p>
+        </div>
 
       <mat-form-field>
-        <textarea matInput placeholder="Comment"></textarea>
+        <textarea formControlName="comment" matInput placeholder="Comment"></textarea>
       </mat-form-field>
+      <div class="form-control-message" *ngIf="comment.invalid && (comment.dirty || comment.touched)">
+        <p *ngIf="comment.errors['required']">Comment is required</p>
+      </div>
 
       <button type="submit"
                     mat-raised-button
